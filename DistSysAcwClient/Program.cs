@@ -166,7 +166,6 @@ class Program
 
                 if (parts.Length < 3)
                 {
-                    Console.WriteLine("Invalid input. Use: User Set <username> <apikey>");
                     continue;
                 }
 
@@ -187,7 +186,7 @@ class Program
 
                 try
                 {
-                    var request = new HttpRequestMessage(HttpMethod.Delete, $"api/user/removeuser?username={storedUsername}");
+                    var request = new HttpRequestMessage(HttpMethod.Delete, "api/user/removeuser?username=" + storedUsername);
                     request.Headers.Add("ApiKey", storedApiKey);
 
                     HttpResponseMessage response = await client.SendAsync(request);
@@ -209,6 +208,74 @@ class Program
                     Console.WriteLine($"Error: {e.Message}");
                 }
 
+            }
+
+            if (input.StartsWith("User Role", StringComparison.OrdinalIgnoreCase))
+            {
+                if (string.IsNullOrEmpty(storedApiKey))
+                {
+                    Console.WriteLine("You need to do a User Post or User Set first");
+                    continue;
+                }
+
+                string[] parts = input.Split(' ', 3, StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length < 3)
+                {
+                    continue;
+                }
+
+                string username = parts[1];
+                string role = parts[2];
+
+                string jsonBody = $"{{\"username\":\"{username}\",\"role\":\"{role}\"}}";
+                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+                var request = new HttpRequestMessage(HttpMethod.Post, "api/user/changerole");
+                request.Content = content;
+                request.Headers.Add("ApiKey", storedApiKey);
+
+                try
+                {
+                    HttpResponseMessage response = await client.SendAsync(request);
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine(responseBody);
+                    }
+                    else
+                    {
+                        Console.WriteLine(responseBody);
+                    }
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine($"Error: {e.Message}");
+                }
+            }
+
+            if(input == "Protected Hello")
+            {
+                if(string.IsNullOrEmpty(storedApiKey))
+                {
+                    Console.WriteLine("You need to do a User Post or User Set first");
+                    continue;
+                }
+                
+                try
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Get, "api/protected/hello");
+                    request.Headers.Add("ApiKey", storedApiKey);
+
+                    HttpResponseMessage response = await client.SendAsync(request);
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    Console.WriteLine(responseBody);
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("Error" + e.Message);
+                }
             }
         }
     }
