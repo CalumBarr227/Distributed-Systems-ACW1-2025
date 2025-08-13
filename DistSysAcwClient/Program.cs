@@ -17,7 +17,6 @@ class Program
         string storedUsername = null;
         string storedApiKey = null;
 
-        Console.WriteLine("Hello. What would you like to do?");
 
         using HttpClient client = new HttpClient();
         client.BaseAddress = new Uri("https://localhost:44394/");
@@ -25,6 +24,7 @@ class Program
 
         while (true)
         {
+            Console.WriteLine("What would you like to do next?");
             string input = Console.ReadLine().Trim();
 
             //if (string.IsNullOrEmpty(input))
@@ -39,17 +39,17 @@ class Program
 
             if (input == "TalkBack Hello")
             {
+                Console.WriteLine("...please wait...");
                 try
                 {
                     HttpResponseMessage response = await client.GetAsync("api/talkback/hello");
-                    response.EnsureSuccessStatusCode();
 
                     string responseBody = await response.Content.ReadAsStringAsync();
                     Console.WriteLine(responseBody);
                 }
                 catch (HttpRequestException e)
                 {
-                    Console.WriteLine($"Error {e.Message}");
+                    Console.WriteLine("Error" + e.Message);
                 }
             }
 
@@ -86,6 +86,7 @@ class Program
                 }
 
                 string query = string.Join("&", numbers.Select(n => $"_integers={n}"));
+                Console.WriteLine("...please wait..."); 
 
                 try
                 {
@@ -104,7 +105,7 @@ class Program
             if (input.StartsWith("User Get", StringComparison.OrdinalIgnoreCase))
             {
                 string username = input.Substring("User Get".Length).Trim();
-
+                Console.WriteLine("...please wait...");
                 try
                 {
                     HttpResponseMessage response = await client.GetAsync("api/user/new?username=" + username);
@@ -122,7 +123,7 @@ class Program
 
                 catch (HttpRequestException e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine("Error" + e.Message);
                 }
 
             }
@@ -135,6 +136,7 @@ class Program
                 {
                     continue;
                 }
+                Console.WriteLine("...please wait...");
                 try
                 {
                     string jsonBody = $"\"{username}\"";
@@ -183,7 +185,7 @@ class Program
                     continue;
                 }
 
-
+                Console.WriteLine("...please wait...");
                 try
                 {
                     var request = new HttpRequestMessage(HttpMethod.Delete, "api/user/removeuser?username=" + storedUsername);
@@ -205,7 +207,7 @@ class Program
                 }
                 catch (HttpRequestException e)
                 {
-                    Console.WriteLine($"Error: {e.Message}");
+                    Console.WriteLine("Error" + e.Message);
                 }
 
             }
@@ -234,6 +236,7 @@ class Program
                 request.Content = content;
                 request.Headers.Add("ApiKey", storedApiKey);
 
+                Console.WriteLine("...please wait...");
                 try
                 {
                     HttpResponseMessage response = await client.SendAsync(request);
@@ -250,7 +253,7 @@ class Program
                 }
                 catch (HttpRequestException e)
                 {
-                    Console.WriteLine($"Error: {e.Message}");
+                    Console.WriteLine("Error" + e.Message);
                 }
             }
 
@@ -261,7 +264,8 @@ class Program
                     Console.WriteLine("You need to do a User Post or User Set first");
                     continue;
                 }
-                
+
+                Console.WriteLine("...please wait...");
                 try
                 {
                     var request = new HttpRequestMessage(HttpMethod.Get, "api/protected/hello");
@@ -277,6 +281,71 @@ class Program
                     Console.WriteLine("Error" + e.Message);
                 }
             }
+
+            if(input.StartsWith("Protected SHA1", StringComparison.OrdinalIgnoreCase))
+            {
+                if(string.IsNullOrEmpty(storedApiKey))
+                {
+                    Console.WriteLine("You need to do a User Post or User Set first");
+                    continue;
+                }
+
+                string message = input.Substring("Protected SHA1".Length).Trim();
+                if(string.IsNullOrEmpty(message))
+                {
+                    continue;
+                }
+
+                var request = new HttpRequestMessage(HttpMethod.Get, $"api/protected/sha1?message={Uri.EscapeDataString(message)}");
+                request.Headers.Add("ApiKey", storedApiKey);
+
+                Console.WriteLine("...please wait...");
+                try
+                {
+                    HttpResponseMessage response = await client.SendAsync(request);
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine(responseBody);
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("Error" + e.Message);
+                }
+
+
+            }
+
+            if (input.StartsWith("Protected SHA256", StringComparison.OrdinalIgnoreCase))
+            {
+                if (string.IsNullOrEmpty(storedApiKey))
+                {
+                    Console.WriteLine("You need to do a User Post or User Set first");
+                    continue;
+                }
+
+                string message = input.Substring("Protected SHA256".Length).Trim();
+                if (string.IsNullOrEmpty(message))
+                {
+                    continue;
+                }
+
+                var request = new HttpRequestMessage(HttpMethod.Get, $"api/protected/sha256?message={Uri.EscapeDataString(message)}");
+                request.Headers.Add("ApiKey", storedApiKey);
+
+                Console.WriteLine("...please wait...");
+                try
+                {
+                    HttpResponseMessage response = await client.SendAsync(request);
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine(responseBody);
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("Error" + e.Message);
+                }
+
+
+            }
+
         }
     }
 }
