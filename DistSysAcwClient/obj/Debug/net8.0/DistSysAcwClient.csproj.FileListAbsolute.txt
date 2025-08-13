@@ -12,3 +12,4 @@ C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient
 C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\obj\Debug\net8.0\DistSysAcwClient.pdb
 C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\obj\Debug\net8.0\DistSysAcwClient.genruntimeconfig.cache
 C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\obj\Debug\net8.0\ref\DistSysAcwClient.dll
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\obj\Debug\net8.0\DistSysAcwClient.sourcelink.json

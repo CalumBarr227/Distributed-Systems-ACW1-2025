@@ -140,3 +140,4 @@ C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwServer
 C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwServer\obj\Debug\net8.0\DistSysAcwServer.pdb
 C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwServer\obj\Debug\net8.0\DistSysAcwServer.genruntimeconfig.cache
 C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwServer\obj\Debug\net8.0\ref\DistSysAcwServer.dll
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwServer\obj\Debug\net8.0\DistSysAcwServer.sourcelink.json

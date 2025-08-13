@@ -59,7 +59,7 @@ namespace DistSysAcwServer.Controllers
                 return Ok(hashString);
             }
 
-            Console.WriteLine("test");
+           
         }
     }
 }
