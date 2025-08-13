@@ -1,0 +1,14 @@
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\bin\Debug\net8.0\DistSysAcwClient.exe
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\bin\Debug\net8.0\DistSysAcwClient.deps.json
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\bin\Debug\net8.0\DistSysAcwClient.runtimeconfig.json
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\bin\Debug\net8.0\DistSysAcwClient.dll
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\bin\Debug\net8.0\DistSysAcwClient.pdb
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\obj\Debug\net8.0\DistSysAcwClient.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\obj\Debug\net8.0\DistSysAcwClient.AssemblyInfoInputs.cache
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\obj\Debug\net8.0\DistSysAcwClient.AssemblyInfo.cs
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\obj\Debug\net8.0\DistSysAcwClient.csproj.CoreCompileInputs.cache
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\obj\Debug\net8.0\DistSysAcwClient.dll
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\obj\Debug\net8.0\refint\DistSysAcwClient.dll
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\obj\Debug\net8.0\DistSysAcwClient.pdb
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\obj\Debug\net8.0\DistSysAcwClient.genruntimeconfig.cache
+C:\Users\Calum\Desktop\DS assessment\DistSysACWSkeletonSolution\DistSysAcwClient\obj\Debug\net8.0\ref\DistSysAcwClient.dll

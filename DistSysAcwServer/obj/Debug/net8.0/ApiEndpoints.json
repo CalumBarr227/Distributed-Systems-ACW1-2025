@@ -1,0 +1,154 @@
+[
+  {
+    "ContainingType": "DistSysAcwServer.Controllers.ProtectedController",
+    "Method": "Hello",
+    "RelativePath": "api/Protected/hello",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DistSysAcwServer.Controllers.ProtectedController",
+    "Method": "SHA1HASH",
+    "RelativePath": "api/Protected/sha1",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "message",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DistSysAcwServer.Controllers.ProtectedController",
+    "Method": "SHA256HASH",
+    "RelativePath": "api/Protected/sha256",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "message",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DistSysAcwServer.Controllers.TalkbackController",
+    "Method": "Hello",
+    "RelativePath": "api/talkback/hello",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DistSysAcwServer.Controllers.TalkbackController",
+    "Method": "Sort",
+    "RelativePath": "api/talkback/sort",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "_integers",
+        "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DistSysAcwServer.Controllers.AuthController",
+    "Method": "TestAdminAccess",
+    "RelativePath": "api/testauth/admin",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DistSysAcwServer.Controllers.AuthController",
+    "Method": "TestUserAccess",
+    "RelativePath": "api/testauth/user",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DistSysAcwServer.Controllers.UserController",
+    "Method": "ChangeUser",
+    "RelativePath": "api/user/changerole",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "data",
+        "Type": "DistSysAcwServer.Controllers.UserController\u002BChangeRoleRequest",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DistSysAcwServer.Controllers.UserController",
+    "Method": "GetUserStatus",
+    "RelativePath": "api/user/new",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DistSysAcwServer.Controllers.UserController",
+    "Method": "CreateUser",
+    "RelativePath": "api/user/new",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DistSysAcwServer.Controllers.UserController",
+    "Method": "RemoveUser",
+    "RelativePath": "api/user/removeuser",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
