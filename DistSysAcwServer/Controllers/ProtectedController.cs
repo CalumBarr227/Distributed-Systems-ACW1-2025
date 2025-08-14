@@ -14,6 +14,13 @@ namespace DistSysAcwServer.Controllers
     [Authorize(Roles = "Admin,User")]
     public class ProtectedController : BaseController
     {
+        private static readonly RSACryptoServiceProvider _rsa;
+
+        // Static constructor runs once when app starts
+        static ProtectedController()
+        {
+            _rsa = new RSACryptoServiceProvider(2048);
+        }
         public ProtectedController(UserContext dbContext, SharedError error)
             : base(dbContext, error)
         {
@@ -61,6 +68,41 @@ namespace DistSysAcwServer.Controllers
 
            
         }
+
+        [HttpGet("getpublickey")]
+        public IActionResult GetPublicKey()
+        {
+            var apiKey = Request.Headers["ApiKey"].FirstOrDefault();
+
+            if (string.IsNullOrWhiteSpace(apiKey) || !DbContext.Users.Any(u => u.ApiKey == apiKey))
+            {
+                return Unauthorized("Invalid API Key");
+            }
+
+            string publicKeyXml = _rsa.ToXmlString(false);
+            return Ok(publicKeyXml);
+        }
+
+        [HttpGet("sign")]
+        public IActionResult Sign([FromQuery] string message)
+        {
+            if (string.IsNullOrWhiteSpace(message))
+                return BadRequest("Message is required");
+
+            var apiKey = Request.Headers["ApiKey"].FirstOrDefault();
+            if (string.IsNullOrWhiteSpace(apiKey) || !DbContext.Users.Any(u => u.ApiKey == apiKey))
+            {
+                return Unauthorized("Invalid API Key");
+            }
+
+            byte[] messageBytes = Encoding.ASCII.GetBytes(message);
+            byte[] signedBytes = _rsa.SignData(messageBytes, new SHA1CryptoServiceProvider());
+            string hexWithDashes = BitConverter.ToString(signedBytes);
+            return Ok(hexWithDashes);
+        }
+
+
+
     }
 }
 

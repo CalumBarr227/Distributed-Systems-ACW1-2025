@@ -16,10 +16,13 @@ class Program
     {
         string storedUsername = null;
         string storedApiKey = null;
+        string storedPublicKeyXml = null;
 
+        //const string BaseUrl = "http://150.237.94.13/7303817/";
 
         using HttpClient client = new HttpClient();
-        client.BaseAddress = new Uri("https://localhost:44394/");
+        //client.BaseAddress = new Uri(BaseUrl);
+        client.BaseAddress = new Uri("http://localhost:53415/");
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
         while (true)
@@ -296,7 +299,7 @@ class Program
                     continue;
                 }
 
-                var request = new HttpRequestMessage(HttpMethod.Get, $"api/protected/sha1?message={Uri.EscapeDataString(message)}");
+                var request = new HttpRequestMessage(HttpMethod.Get, "api/protected/sha1?message=" + Uri.EscapeDataString(message));
                 request.Headers.Add("ApiKey", storedApiKey);
 
                 Console.WriteLine("...please wait...");
@@ -328,7 +331,7 @@ class Program
                     continue;
                 }
 
-                var request = new HttpRequestMessage(HttpMethod.Get, $"api/protected/sha256?message={Uri.EscapeDataString(message)}");
+                var request = new HttpRequestMessage(HttpMethod.Get, "api/protected/sha256?message=" + Uri.EscapeDataString(message));
                 request.Headers.Add("ApiKey", storedApiKey);
 
                 Console.WriteLine("...please wait...");
@@ -345,6 +348,104 @@ class Program
 
 
             }
+
+            if (input == "Protected GetPublicKey")
+            {
+                if (string.IsNullOrEmpty(storedApiKey))
+                {
+                    Console.WriteLine("You need to do a User Post or User Set first");
+                    continue;
+                }
+
+                Console.WriteLine("...please wait...");
+                try
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Get, "api/protected/getpublickey");
+                    request.Headers.Add("ApiKey", storedApiKey);
+
+                    HttpResponseMessage response = await client.SendAsync(request);
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        storedPublicKeyXml = responseBody;
+                        Console.WriteLine("Got Public Key");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Couldn't Get the Public Key");
+                    }
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                }
+            }
+
+            if (input.StartsWith("Protected Sign", StringComparison.OrdinalIgnoreCase))
+            {
+                if (string.IsNullOrEmpty(storedApiKey))
+                {
+                    Console.WriteLine("You need to do a User Post or User Set first");
+                    continue;
+                }
+
+                if (string.IsNullOrEmpty(storedPublicKeyXml))
+                {
+                    Console.WriteLine("Client doesn’t yet have the public key");
+                    continue;
+                }
+
+                string message = input.Substring("Protected Sign".Length).Trim();
+                if (string.IsNullOrEmpty(message))
+                {
+                    continue;
+                }
+
+                var request = new HttpRequestMessage(HttpMethod.Get, "api/protected/sign?message=" + Uri.EscapeDataString(message));
+                request.Headers.Add("ApiKey", storedApiKey);
+
+                Console.WriteLine("...please wait...");
+                try
+                {
+                    HttpResponseMessage response = await client.SendAsync(request);
+                    response.EnsureSuccessStatusCode();
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine("Signature received from server.");
+
+                    try
+                    {
+                        byte[] signatureBytes = responseBody.Split('-').Select(b => Convert.ToByte(b, 16)).ToArray();
+
+                        using var rsa = new RSACryptoServiceProvider();
+                        rsa.FromXmlString(storedPublicKeyXml);
+
+                        byte[] messageBytes = Encoding.ASCII.GetBytes(message);
+                        bool verified = rsa.VerifyData(messageBytes, CryptoConfig.MapNameToOID("SHA1"), signatureBytes);
+
+                        if (verified)
+                        {
+                            Console.WriteLine("Message was successfully signed");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Message was not successfully signed");
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Invalid signature format received from server");
+                    }
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("Error" + e.Message);
+                }
+            }
+
+
+
 
         }
     }
